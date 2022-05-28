@@ -5,7 +5,7 @@
 
     > koshkinaav18@gmail.com
     > 
-    > @konkin_a_v(telegramm)
+    > @konkin_a_v(telegram)
     > 
 
     
