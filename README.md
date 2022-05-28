@@ -10,13 +10,13 @@
 
     
  2. Профессиональные навыки:
-    > Python (numpy, pandas, scipy, BeautifulSoup, urllib, requests)
+    > Python (numpy, pandas, scipy, BeautifulSoup, urllib, requests).
     > 
     > Математическая статистика и теория вероятности( метод моментов, оценки мат. ожидания и дисперсии, доверительные инткрвалы, проверка гипотиз, A/B тестирование).
     > 
-    > Свободное владение LaTEX, Powerpoint, Word, Excel 
+    > Свободное владение LaTEX, Powerpoint, Word, Excel.
     > 
-    > работа  git
+    > работа  git.
     > 
     > Владение английским языком на уровне С1.
     > 
