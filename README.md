@@ -6,6 +6,8 @@
     > 
     > @konkin_a_v(telegramm)
     > 
-    > +79517774998
+
     
- 2.
+ 2. Профессиональные навыки:
+    > Python (numpy, pandas, scipy, BeautifulSoup, urllib, requests)
+    > Мастематическая статистика и теория вероятниси(
