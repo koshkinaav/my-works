@@ -12,9 +12,11 @@ class Linear_Regression():
         self.d = X.shape[1]
         self.w0 = np.zeros(self.d)
 
-    def solution(self):
+    def solution(self, X_test):
 
-        return np.linalg.inv(self.X.T @ self.X) @ self.X.T * self.y
+        weights = np.linalg.inv(self.X.T @ self.X) @ self.X.T @ self.y
+        y_pred = np.dot(X_test, weights)
+        return y_pred.reshape((len(y_pred), 1))
 
     def partial_k(self, w, k):
 
@@ -32,7 +34,7 @@ class Linear_Regression():
 
         return np.array(gradient)
 
-    def gradient_descent(self, lambd, max_iter, eps):
+    def gradient_descent(self, lambd = 1e-6, max_iter=1000, eps=0.1):
 
         iter = 0
 
@@ -44,6 +46,19 @@ class Linear_Regression():
             w = W
             W = w - lambd * self.grad_L(w)
             iter += 1
-            print(W)
+
 
         return W
+
+    def predict(self, X_test):
+
+        weights = self.gradient_descent()
+        y_pred = np.dot(X_test, weights)
+        return y_pred.reshape((len(y_pred), 1))
+
+    def score(self, y1, y2):
+
+        score = (1/len(y1)) * np.sum((y1 - y2)**2)
+
+        return score
+
