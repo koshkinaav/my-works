@@ -8,11 +8,15 @@ class BaseDescent:
         self.X = X
         self.l, self.d = X.shape[0], X.shape[1]
         self.y = y.reshape((self.l, 1))
-        self.w = np.zeros((self.d, 1))
+        self.w = np.random.rand(self.d, 1)
+
         self.lambda_ = 1e-6
         self.s0 = 1
         self.p = 0.5
         self.iteration = 1
+
+        self.h = 0
+        self.alpha = 1e-9
 
     def Learning_Rate(self):
         self.iteration += 1
@@ -33,7 +37,6 @@ class BaseDescent:
 
     def predict(self, x):
         y_pred = x @ self.fit()
-        print(self.iteration)
 
         return y_pred
 
@@ -87,3 +90,24 @@ class StochasticDescent(BaseDescent):
             self.w = w
             w = self.w - self.update_weights()
         return self.w
+
+
+class MomentumDescent(BaseDescent):
+
+    def update_weights(self):
+        eta = self.Learning_Rate()
+        gradient = self.partial_k(self.iteration)
+        self.h = self.alpha * self.h + eta * gradient
+
+        return self.h
+
+    def fit(self, eps=0.01):
+        max_iter = self.d
+        w = self.w - self.update_weights()
+
+        while self.iteration < max_iter and np.linalg.norm(w - self.w) > eps:
+            self.w = w
+            w = self.w - self.update_weights()
+
+        return self.w
+    
