@@ -10,8 +10,8 @@ class BaseDescent:
         self.y = y.reshape((self.l, 1))
         self.w = np.zeros((self.d, 1))
 
-        self.lambda_ = 1e-6
-        self.s0 = 2
+        self.lambda_ = 1e-11
+        self.s0 = 1
         self.p = 0.01
         self.iteration = 1
 
@@ -44,9 +44,8 @@ class BaseDescent:
 class VanillaGradientDescent(BaseDescent):
 
     def calc_gradient(self):
-        gradient = []
-        for k in range(self.d):
-            gradient.append(self.partial_k(k))
+
+        gradient = 2 / self.l * ((-self.y + self.X @ self.w).T @ self.X)
 
         return np.array(gradient, dtype=float).reshape(self.d, 1)
 
@@ -54,8 +53,7 @@ class VanillaGradientDescent(BaseDescent):
         gradient = self.calc_gradient()
         return self.Learning_Rate() * gradient
 
-    def fit(self, max_iter=1000, tolerance=0.001):
-
+    def fit(self, max_iter=10000, tolerance=0.000001):
         w = self.w - self.update_weights()
 
         while self.iteration < max_iter and np.linalg.norm(w - self.w) > tolerance and None not in w:
@@ -82,7 +80,7 @@ class StochasticDescent(BaseDescent):
         A, gradient = self.calc_gradient()
         return self.Learning_Rate() / A * gradient
 
-    def fit(self, max_iter=100, tolerance=0.001):
+    def fit(self, max_iter=10, tolerance=0.01):
 
         w = self.w - self.update_weights()
 
@@ -163,12 +161,11 @@ class BaseDescentReg(VanillaGradientDescent):
         gradient = self.calc_gradient()
         return self.Learning_Rate() * gradient
 
-    def fit(self, max_iter=1000, tolerance=0.001):
+    def fit(self, max_iter=10000, tolerance=0.0001):
 
         w = self.w - self.update_weights()
 
-        while self.iteration < max_iter and np.linalg.norm(w - self.w) > tolerance and None not in w:
+        while self.iteration < max_iter and np.linalg.norm(w - self.w) > tolerance:
             self.w = w
             w = self.w - self.update_weights()
         return self.w
-    
