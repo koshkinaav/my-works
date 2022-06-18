@@ -84,7 +84,8 @@ class BaseDescent:
         :param x: features array
         :return: prediction: np.ndarray
         """
-        return (x @ self.w).reshape((len(x @ self.w), ))
+        predict = x @ self.w
+        return predict.reshape((len(predict),))
 
 
 class VanillaGradientDescent(BaseDescent):
